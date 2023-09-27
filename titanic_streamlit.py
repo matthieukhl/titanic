@@ -71,13 +71,7 @@ with tab1:
 	df.drop(['Cabin', 'Name', 'Ticket', 'Embarked'], inplace=True, axis = 1)
 	df['Sex'] = df['Sex'].replace({'female': 0, 'male': 1})
 
-	correlation_matrix = df.corr()
-
-	# Créer la heatmap
-	fig = plt.figure(figsize=(10, 8))
-	sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
-	plt.title("Heatmap de Corrélation")
-	st.pyplot(fig)
+	st.image("heatmap_titanic.png")
 
 	"""
 	Cette heatmap donne un aperçu de la relation entre 'Survived' et les autres caractéristiques
