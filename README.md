@@ -24,11 +24,11 @@ Pour exécuter cette application localement, suivez ces étapes :
    ```bash
    git clone https://github.com/matthieukhl/titanic.git
 
-Accédez au répertoire du projet
+2. Accédez au répertoire du projet
    ```
    cd titanic
    ```
-Installez les dépendances en utilisant pip.
+3. Installez les dépendances en utilisant pip.
    
    ```
    pip install -r requirements.txt
