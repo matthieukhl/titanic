@@ -36,7 +36,7 @@ Pour exécuter cette application localement, suivez ces étapes :
 ## Exécution
 
 Pour utiliser l'application, exécutez la commande suivante dans le répertoire du projet :
-   ```
+   ```bash
   streamlit run titanic_streamlit.py
    ```
 ## Exemples
