@@ -26,19 +26,17 @@ Pour exécuter cette application localement, suivez ces étapes :
 
 Accédez au répertoire du projet
 
-  ```bash
-  cd titanic
-   ```bash
+   cd titanic
+   
 Installez les dépendances en utilisant pip.
    
-   ```bash
+   
    pip install -r requirements.txt
 
 ## Exécution
 
 Pour utiliser l'application, exécutez la commande suivante dans le répertoire du projet :
 
-   ```bash
   streamlit run titanic_streamlit.py
 
 ## Exemples
