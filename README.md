@@ -25,17 +25,20 @@ Pour exécuter cette application localement, suivez ces étapes :
    git clone https://github.com/matthieukhl/titanic.git
 
 Accédez au répertoire du projet
-  
+
+  ```bash
   cd titanic
 
 Installez les dépendances en utilisant pip.
-
-  pip install -r requirements.txt
+   
+   ```bash
+   pip install -r requirements.txt
 
 ## Exécution
 
 Pour utiliser l'application, exécutez la commande suivante dans le répertoire du projet :
 
+   ```bash
   streamlit run titanic_streamlit.py
 
 ## Exemples
