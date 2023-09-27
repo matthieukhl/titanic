@@ -95,11 +95,11 @@ with tab2:
 
 	"""
 	prep = '''df['Sex'] = df['Sex'].replace({'female': 0, 'male': 1})
-	data = df.drop(['Survived'], axis=1)
-	target = df['Survived']
+data = df.drop(['Survived'], axis=1)
+target = df['Survived']
 
-	data['Sex'] = data['Sex'].replace({'female': 0, 'male': 1})
-	data = data[["Sex", "Pclass", "Age", "Fare"]]
+data['Sex'] = data['Sex'].replace({'female': 0, 'male': 1})
+data = data[["Sex", "Pclass", "Age", "Fare"]]
 	'''
 
 	st.code(prep, language = 'python')
@@ -111,15 +111,15 @@ with tab2:
 	J'ai retenu modèle RFC. J'ai entraîné le modèle avec les hyperparamètres par défaut et j'ai évalué sa précision sur l'ensemble de test. La précision initiale était de 78%.
 	"""
 	rfc_1 = '''#Instanciation du modèle
-	random_forest = RandomForestClassifier(n_estimators=100, random_state= 42)
+random_forest = RandomForestClassifier(n_estimators=100, random_state= 42)
 
-	#Entrainement du modèle
-	random_forest.fit(X_train, y_train)
+#Entrainement du modèle
+random_forest.fit(X_train, y_train)
 
-	#Evaluation du modèle
-	rfc_pred = random_forest.predict(X_test)
-	accuracy_rfc = accuracy_score(y_test, rfc_pred)
-	print("Précision :", accuracy_rfc)
+#Evaluation du modèle
+rfc_pred = random_forest.predict(X_test)
+accuracy_rfc = accuracy_score(y_test, rfc_pred)
+print("Précision :", accuracy_rfc)
 	'''
 
 	st.code(rfc_1, language='python')
@@ -130,20 +130,20 @@ with tab2:
 	"""
 
 	grid_search = '''#Recherche des meilleurs hypereparamètres
-	param_grid_rfc = {
-   	'n_estimators': [50, 100, 200],              # Nombre d'arbres dans la forêt
-   	'max_depth': [None, 10, 20, 30],            # Profondeur maximale des arbres
-   	'min_samples_split': [2, 5, 10],           # Nombre minimum d'échantillons requis pour diviser un nœud
-   	'min_samples_leaf': [1, 2, 4],             # Nombre minimum d'échantillons requis dans une feuille
-   	'bootstrap': [True, False],                 # Si les échantillons sont bootstrapés ou non
-   	'criterion': ['gini', 'entropy']           # Critère de fraction : 'gini' ou 'entropy'
-	}
+param_grid_rfc = {
+   'n_estimators': [50, 100, 200],              # Nombre d'arbres dans la forêt
+   'max_depth': [None, 10, 20, 30],            # Profondeur maximale des arbres
+   'min_samples_split': [2, 5, 10],           # Nombre minimum d'échantillons requis pour diviser un nœud
+   'min_samples_leaf': [1, 2, 4],             # Nombre minimum d'échantillons requis dans une feuille
+   'bootstrap': [True, False],                 # Si les échantillons sont bootstrapés ou non
+   'criterion': ['gini', 'entropy']           # Critère de fraction : 'gini' ou 'entropy'
+}
 
-	grid_search_rfc = GridSearchCV(estimator=random_forest, param_grid=param_grid_rfc, cv=5, scoring='accuracy', n_jobs=-1)
-	grid_search_rfc.fit(X_train, y_train)
+grid_search_rfc = GridSearchCV(estimator=random_forest, param_grid=param_grid_rfc, cv=5, scoring='accuracy', n_jobs=-1)
+grid_search_rfc.fit(X_train, y_train)
 
-	best_params_rfc = grid_search_rfc.best_params_
-	best_score_rfc = grid_search_rfc.best_score_
+best_params_rfc = grid_search_rfc.best_params_
+best_score_rfc = grid_search_rfc.best_score_
 	'''
 
 	st.code(grid_search, language='python')
@@ -157,13 +157,13 @@ with tab2:
 	"""
 
 	rfc_2 = '''# On récupère le meilleur estimateur (modèle) trouvé par la recherche d'hyperparamètres
-	best_rfc = grid_search_rfc.best_estimator_
+best_rfc = grid_search_rfc.best_estimator_
 
-	# On utilise le meilleur modèle pour faire des prédictions sur l'ensemble de test
-	y_pred_best_rfc = best_rfc.predict(X_test)
+# On utilise le meilleur modèle pour faire des prédictions sur l'ensemble de test
+y_pred_best_rfc = best_rfc.predict(X_test)
 
-	# On calcule l'accuracy (précision) en comparant les prédictions aux vraies étiquettes (y_test)
-	accuracy_best_rfc = accuracy_score(y_test, y_pred_best_rfc)
+# On calcule l'accuracy (précision) en comparant les prédictions aux vraies étiquettes (y_test)
+accuracy_best_rfc = accuracy_score(y_test, y_pred_best_rfc)
 
 	'''
 
@@ -174,19 +174,20 @@ with tab2:
 	J'ai finalement effectué une validation croisée en utilisant StratifiedKFold pour obtenir une évaluation plus robuste de la performance du modèle. 
 	"""
 
-	kfold = '''from sklearn.model_selection import StratifiedKFold
+	kfold = '''
+from sklearn.model_selection import StratifiedKFold
 
-	# Créez un objet StratifiedKFold
-	n_splits = 5  # Par exemple, 5 plis
-	stratified_kfold = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+# Créez un objet StratifiedKFold
+n_splits = 5  # Par exemple, 5 plis
+stratified_kfold = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
 
-	# Bouclez à travers les plis
-	for train_index, test_index in stratified_kfold.split(data, target):
-   	X_train, X_test = data.iloc[train_index], data.iloc[test_index]  # Utilisez .iloc pour accéder aux données par les indices
-   	y_train, y_test = target.iloc[train_index], target.iloc[test_index]
+# Bouclez à travers les plis
+for train_index, test_index in stratified_kfold.split(data, target):
+   X_train, X_test = data.iloc[train_index], data.iloc[test_index]  # Utilisez .iloc pour accéder aux données par les indices
+   y_train, y_test = target.iloc[train_index], target.iloc[test_index]
 
-	pred_rfc = best_rfc.predict(X_test)
-	accuracy_best_rfc_2 = accuracy_score(y_test,pred_rfc)
+pred_rfc = best_rfc.predict(X_test)
+accuracy_best_rfc_2 = accuracy_score(y_test,pred_rfc)
 	'''
 
 	st.code(kfold, language = 'python')
