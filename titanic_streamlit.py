@@ -196,30 +196,54 @@ with tab2:
 	"""
 
 with tab3:
-    st.subheader("Simulation de survie au Titanic")
-    
-    # Ajoutez des widgets pour entrer les données de simulation
-    age = st.slider("Âge", min_value=0, max_value=100, value=30, step=1)
-    sex = st.radio("Sexe", ("Mâle", "Femelle"))
-    pclass = st.selectbox("Classe", [1, 2, 3])
-    fare = st.number_input("Tarif (Fare)", min_value=0.0, max_value=1000.0, value=50.0, step=10.0)
+   st.subheader("Simulation de survie au Titanic")
 
-    # Gestion de l'événement de bouton pour simuler la survie
-    if st.button("Simuler la survie"):
-        # Préparez les données de simulation pour le modèle
-        sex_mapping = {'Mâle': 1, 'Femelle': 0}
-        sim_data = pd.DataFrame({'Sex': [sex_mapping[sex]], 'Pclass': [pclass], 'Age': [age], 'Fare': [fare]})
+   """
+   A vous de jouer! Ajustez les paramètres ci-dessous pour savoir si vous auriez
+   survécu au naufrage du Titanic!
+	"""
 
-        # Chargez le modèle RFC depuis le fichier
-        with open("meilleur_modele_rfc.pkl", "rb") as model_file:
-            loaded_rfc_model = joblib.load(model_file)
 
-        # Faites la prédiction de survie
-        survival_prediction = loaded_rfc_model.predict(sim_data)
+   #Ajouter des widgets pour entrer les données de simulation
+   age = st.slider("**Âge**", min_value = 0, max_value = 100, value = 30, step = 1)
 
-        # Affichez le résultat de la prédiction
-        if survival_prediction[0] == 1:
-            st.success("Vous auriez survécu au naufrage du Titanic !")
-        else:
-            st.error("Vous n'auriez pas survécu au naufrage du Titanic.")
+   """
+   Utilisez ce curseur pour sélection votre âge en faisant glisser le surseur entre 0 et 100 ans.
+   Vous pouvez également saisir l'âge directement dans la zone de texte. Le curseur a une valeur par défaut
+   de 30 ans, mais vous pouvez le régler sur n'importe quelle valeur entre la plage spécifiée.
+   """
 
+   sex = st.selectbox("**Sexe**", ("Mâle", "Femelle"))
+   """
+	Sélectionnez votre sexe entre "Mâle" et "Femelle".
+   """
+   pclass = st.selectbox("**Classe**", [1, 2, 3])
+   """
+	Utilisez la liste déroulante pour choisir la classe à laquelle vous auriez appartenu parmi les
+	options : 1 (première classe), 2 (seconde classe) ou 3 (troisième classe).
+   """
+   fare = st.number_input("**Tarif**", min_value = 0.0, max_value = 1000.0, value = 50.0, step = 10.0)
+   """
+   Utilisez la zone de saisie numérique pour entrer le tarif que vous auriez payé pour vorte billet.
+   Vous pouvez régler le tarif en augmentant ou en diminuant la valeur à l'aide des flèches ou en saisissant
+   une valeur directement. La valeur par défaut est de 50.0, mais vous pouvez la modifier en fonction
+   de votre choix
+   """
+   #Gestion de l'évènement de bouton pour simuler la survie
+   if st.button("Simuler la survie"):
+   	#Préparer les données de simulation pour le modèle
+   	sex_mapping = {"Mâle" : 1, "Femelle" : 0}
+   	sim_data = pd.DataFrame({'Sex': [sex_mapping[sex]], 'Pclass': [pclass], 'Age': [age], 'Fare': [fare]})
+
+   	#Charger le modèle RFC depuis le fichier
+   	with open("meilleur_modele_rfc.pkl", "rb") as model_file:
+   		loaded_rfc_model = joblib.load(model_file)
+
+   	#Prédiction de la survie
+   	survival_prediction = loaded_rfc_model.predict(sim_data)
+
+   	#Affichage du résultat
+   	if survival_prediction[0] == 1:
+   		st.success("Vous auriez survécu au naufrage du Titanic!")
+   	else:
+   		st.error("Vous n'auriez pas survécu au naufrage du Titanic!")
