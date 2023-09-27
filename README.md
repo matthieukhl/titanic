@@ -28,7 +28,7 @@ Accédez au répertoire du projet
 
   ```bash
   cd titanic
-
+   ```bash
 Installez les dépendances en utilisant pip.
    
    ```bash
