@@ -67,7 +67,8 @@ with tab1:
 	st.pyplot(fig)
 
 	st.subheader("Corrélations entre les variables")
-	
+	df.dropna(subset=['Age', 'Embarked'], inplace=True)
+	df.drop(['Cabin', 'Name', 'Ticket', 'Embarked'], inplace=True, axis = 1)
 	df['Sex'] = df['Sex'].replace({'female': 0, 'male': 1})
 
 	correlation_matrix = df.corr()
