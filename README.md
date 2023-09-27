@@ -25,7 +25,7 @@ Pour exécuter cette application localement, suivez ces étapes :
    git clone https://github.com/matthieukhl/titanic.git
 
 2. Accédez au répertoire du projet
-   ```
+   ```bash
    cd titanic
    ```
 3. Installez les dépendances en utilisant pip.
